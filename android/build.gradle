@@ -5,12 +5,22 @@ buildscript {
   repositories {
     google()
     jcenter()
+    // 配置HMS Core SDK的Maven仓地址。
+    maven {url 'https://developer.huawei.com/repo/'}
   }
 
   dependencies {
     classpath 'com.android.tools.build:gradle:3.2.1'
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    // 增加agcp配置。
+    classpath 'com.huawei.agconnect:agcp:1.4.2.300'
+  }
+}
+
+allprojects {
+  repositories {
+    maven { url 'http://developer.huawei.com/repo/' }
   }
 }
 
@@ -33,9 +43,9 @@ android {
     targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
     versionCode 1
     versionName "1.0"
-    
+
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
@@ -114,17 +124,28 @@ repositories {
   }
 
   if (!found) {
-    throw new GradleException(
-            "${project.name}: unable to locate React Native android sources. " +
-                    "Ensure you have you installed React Native as a dependency in your project and try again."
-    )
+//    throw new GradleException(
+//            "${project.name}: unable to locate React Native android sources. " +
+//                    "Ensure you have you installed React Native as a dependency in your project and try again."
+//    )
   }
 }
 
 def kotlin_version = getExtOrDefault('kotlinVersion')
 
 dependencies {
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  // bugly sdk
+  implementation 'com.tencent.bugly:crashreport:2.6.6'
+  implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
+  implementation 'com.tencent.imsdk:imsdk:4.7.1'
+
+  // HUAWEI push sdk
+  implementation 'com.huawei.android.hms:push:2.6.3.301'
+  implementation 'com.huawei.android.hms:base:2.6.3.301'
+  // MEIZU push sdk
+  implementation 'com.meizu.flyme.internet:push-internal:3.6.+@aar'
 }
