@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 消息
  */
-@property(nonatomic, strong) TIMMessage *msg;
+@property(nonatomic, strong) V2TIMMessage *msg;
 /**
  * 消息id
  */
@@ -77,6 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
  * 描述信息
  */
 @property(nonatomic, strong) NSString *desc;
+
+@property(nonatomic,strong) NSDictionary* customerData;
 
 /**
  * 根据消息类型初始化消息

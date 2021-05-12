@@ -6,7 +6,7 @@
 //  Copyright © 2019 feewee. All rights reserved.
 //
 
-#import <ImSDK/IMMessageExt.h>
+#import <ImSDK/ImSDK.h>
 
 @class IMMessageInfo;
 
@@ -38,24 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)initSdk:(NSString *_Nullable)configFilePath;
 
 /**
- * 设置连接通知监听器
- * @param listener 监听器
- */
-- (void)setConnListener:(id <TIMConnListener>)listener;
-
-/**
- * 设置用户在线状态通知监听器
- * @param listener 监听器
- */
-- (void)setUserStatusListener:(id <TIMUserStatusListener>)listener;
-
-/**
- * 添加消息监听器
- * @param listener 监听器
- */
-- (void)addMessageListener:(id <TIMMessageListener>)listener;
-
-/**
  * 用户登录
  * @param identify identify
  * @param userSig userSig
@@ -64,15 +46,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)loginWithIdentify:(NSString *)identify
                   userSig:(NSString *)userSig
-                     succ:(TIMSucc)succ
-                     fail:(TIMFail)fail;
+                     succ:(V2TIMSucc)succ
+                     fail:(V2TIMFail)fail;
 
 /**
  * 用户登出
  * @param succ 成功回调
  * @param fail 失败回调
  */
-- (void)logoutWithSucc:(TIMSucc)succ fail:(TIMFail)fail;
+- (void)logoutWithSucc:(V2TIMSucc)succ fail:(V2TIMFail)fail;
 
 /**
  * 获取会话
@@ -81,16 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param succ 成功回调
  * @param fail 失败回调
  */
-- (void)getConversationWithType:(NSInteger)type
-                       receiver:(NSString *)receiver
-                           succ:(TIMSucc)succ
-                           fail:(TIMFail)fail;
-
-/**
- * 设置消息为已读状态
- * @param message 消息
- */
-- (void)setMessageRead:(TIMMessage *)message;
+- (void)getConversationWithType:(NSString *)receiver
+                           succ:(V2TIMSucc)succ
+                           fail:(V2TIMFail)fail;
 
 /**
  * 发送消息
@@ -104,11 +79,12 @@ NS_ASSUME_NONNULL_BEGIN
  * @param succ 成功回调
  * @param fail 失败回调
  */
-- (void)sendMessage:(int)type
-            content:(NSString *)content
-             option:(NSDictionary *)option
-               succ:(IMSendMsgSucc)succ
-               fail:(TIMFail)fail;
+- (void)sendMessage:(NSString *)content
+               succ:(V2TIMSucc)succ
+               fail:(V2TIMFail)fail;
+
+
+- (void)loadMessages:(V2TIMMessageListSucc)succ fail:(V2TIMFail)fail;
 
 /**
  * 销毁会话
@@ -116,26 +92,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)destroyConversation;
 
 /**
- * 获取未读消息数量
- * @return 数量
- */
-- (int)getUnReadCount;
-
-/**
  * 配置设备token
  * @param token token
  */
 - (void)configDeviceToken:(NSData *)token;
-
-/**
- * 切换后台
- */
-- (void)switchBackground;
-
-/**
- * 切换前台
- */
-- (void)switchForeground;
 
 /**
  * 播放声音

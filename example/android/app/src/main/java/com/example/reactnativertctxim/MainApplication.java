@@ -8,9 +8,10 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.soloader.SoLoader;
+import com.reactnative.rtctxim.IMPackage;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import com.reactnativertctxim.RtcTximPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -27,7 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for RtcTximExample:
           // packages.add(new MyReactNativePackage());
-          packages.add(new RtcTximPackage());
+          packages.add(new IMPackage());
           return packages;
         }
 

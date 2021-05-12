@@ -14,7 +14,7 @@
 
 - (void)onNewMessage:(NSArray<TIMMessage *> *)msgs {
   NSUInteger count = [msgs count];
-  IM_LOG_TAG_INFO(@"新消息", @"收到%@条消息", @([msgs count]));
+//  IM_LOG_TAG_INFO(@"新消息", @"收到%@条消息", @([msgs count]));
   if (count == 0) {
     return;
   }

@@ -141,7 +141,7 @@ dependencies {
   // bugly sdk
   implementation 'com.tencent.bugly:crashreport:2.6.6'
   implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
-  implementation 'com.tencent.imsdk:imsdk:4.7.1'
+  implementation 'com.tencent.imsdk:imsdk:5.1.56'
 
   // HUAWEI push sdk
   implementation 'com.huawei.android.hms:push:2.6.3.301'

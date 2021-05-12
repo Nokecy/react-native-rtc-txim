@@ -17,19 +17,19 @@
 #pragma mark - TIMConnListener
 
 - (void)onConnSucc {
-  IM_LOG_INFO(@"网络连接成功");
+//  IM_LOG_INFO(@"网络连接成功");
 }
 
 - (void)onConnFailed:(int)code err:(NSString *)err {
-  IM_LOG_WARN(@"网络连接失败，错误码：%@，原因：%@", @(code), err);
+//  IM_LOG_WARN(@"网络连接失败，错误码：%@，原因：%@", @(code), err);
 }
 
 - (void)onDisconnect:(int)code err:(NSString *)err {
-  IM_LOG_WARN(@"网络连接断开，错误码：%@，原因：%@", @(code), err);
+//  IM_LOG_WARN(@"网络连接断开，错误码：%@，原因：%@", @(code), err);
 }
 
 - (void)onConnecting {
-  IM_LOG_INFO(@"网络连接中");
+//  IM_LOG_INFO(@"网络连接中");
 }
 
 @end

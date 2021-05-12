@@ -34,6 +34,9 @@
     @"lat": @"",
     @"lng": @"",
   }];
+  if (_customerData) {
+    dict[@"customerData"] = _customerData;
+  }
   if (_senderNickName) {
     dict[@"nickName"] = _senderNickName;
   }

@@ -12,77 +12,53 @@
 
 @implementation IMMessageBuilder
 
-+ (IMMessageInfo *)buildMessage:(IMMessageType)type content:(NSString *)content option:(NSDictionary *)option {
-  switch (type) {
-    case IMMessageTypeText:
-      return [self buildTextMessage:content];
-    default:
-      return nil;
-  }
-}
-
-+ (IMMessageInfo *)buildTextMessage:(NSString *)content {
-  IMMessageInfo *info = [[IMMessageInfo alloc] initWithType:IMMessageTypeText];
-  TIMMessage *msg = [TIMMessage new];
-  TIMTextElem *elem = [TIMTextElem new];
-  [elem setText:content];
-  [msg addElem:elem];
-  info.msg = msg;
-  info.msgTime = CURRENT_TIMESTAMP;
-  info.extra = content;
-  return info;
-}
-
-+ (IMMessageInfo *)buildMessageWithTIMMessage:(TIMMessage *)msg {
++ (IMMessageInfo *)buildMessageWithTIMMessage:(V2TIMMessage *)msg {
   if (!msg || msg.status == TIM_MSG_STATUS_HAS_DELETED) {
     return nil;
   }
-  if ([msg elemCount] == 0) {
-    return nil;
-  }
   IMMessageInfo *info = [IMMessageInfo new];
-  TIMElem *elem = [msg getElem:0];
   // 消息类型，内容
-  if ([elem isKindOfClass:[TIMTextElem class]]) {
+  if ([msg elemType] == V2TIM_ELEM_TYPE_TEXT) {
     info.msgType = IMMessageTypeText;
-    TIMTextElem *textElem = (TIMTextElem *) elem;
-    info.extra = [textElem text];
-  } else if ([elem isKindOfClass:[TIMCustomElem class]]) {
+    info.extra = [[msg textElem] text];
+  } else if([msg elemType] == V2TIM_ELEM_TYPE_CUSTOM) {
     info.msgType = IMMessageTypeCustom;
-    TIMCustomElem *customElem = (TIMCustomElem *) elem;
-    info.extra = [[NSString alloc] initWithData:[customElem data] encoding:NSUTF8StringEncoding];
+    NSDictionary* data = [IMMessageBuilder jsonData2Dictionary:[[msg customElem] data] ];
+    info.customerData = data;
   } else {
     return nil;
   }
   // 推送信息字段
-  TIMOfflinePushInfo *pushInfo = [msg getOfflinePushInfo];
-  if (pushInfo) {
-    info.desc = [pushInfo desc];
-    info.extra = [pushInfo ext];
-  }
+//  TIMOfflinePushInfo *pushInfo = [msg getOfflinePushInfo];
+//  if (pushInfo) {
+//    info.desc = [pushInfo desc];
+//    info.extra = [pushInfo ext];
+//  }
   // 消息基本信息
   info.msg = msg;
-  info.msgId = [msg msgId];
+  info.msgId = [msg msgID];
   info.msgTime = [[msg timestamp] timeIntervalSince1970] * 1000;
   info.isSelf = [msg isSelf];
   info.status = [msg status];
-  if (info.isSelf) {// 发送消息
-    // 发送方信息，这里为自己
-    info.sender = [msg sender];
-    // 接收方信息
-    info.receiver = [[msg getConversation] getReceiver];
-    info.isRead = [msg isPeerReaded];
-  } else {// 接收消息
-    // 发送方信息
-    TIMUserProfile *profile = [msg getSenderProfile];
-    info.sender = [profile identifier];
-    info.senderAvatar = [profile faceURL];
-    info.senderNickName = [profile nickname];
-    // 接收方信息，这里为自己
-    info.receiver = [[msg getConversation] getSelfIdentifier];
-    info.isRead = [msg isReaded];
-  }
+  info.sender = [msg sender];
+  info.senderNickName = [msg nickName];
+  info.senderAvatar = [msg faceURL];
+  info.receiver = [msg userID];
+  info.isRead = [msg isPeerRead];
   return info;
+}
+
++ (NSDictionary *)jsonData2Dictionary:(NSData *)jsonData {
+    if (jsonData == nil) {
+        return nil;
+    }
+    NSError *err = nil;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    if (err || ![dic isKindOfClass:[NSDictionary class]]) {
+        NSLog(@"Json parse failed");
+        return nil;
+    }
+    return dic;
 }
 
 @end
