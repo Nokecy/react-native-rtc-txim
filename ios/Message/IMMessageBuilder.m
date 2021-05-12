@@ -1,11 +1,3 @@
-//
-//  IMMessageBuilder.m
-//  RCTTxim
-//
-//  Created by 张建军 on 2019/5/5.
-//  Copyright © 2019 feewee. All rights reserved.
-//
-
 #import "IMMessageBuilder.h"
 
 #define CURRENT_TIMESTAMP [[NSDate date] timeIntervalSince1970] * 1000

@@ -1,11 +1,3 @@
-//
-//  RCTEventEmitter+IMBaseModule.m
-//  RCTTxim
-//
-//  Created by 张建军 on 2019/5/6.
-//  Copyright © 2019 feewee. All rights reserved.
-//
-
 #import "RCTEventEmitter+IMBaseModule.h"
 #import <objc/runtime.h>
 #import <React/RCTLog.h>
