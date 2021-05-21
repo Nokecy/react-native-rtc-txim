@@ -5,11 +5,11 @@ const { IMMessageModule: module } = NativeModules;
 const emitter = new NativeEventEmitter(module);
 
 export default {
-  addMessageReceiveListener(listener, context) {
+  addMessageReceiveListener(listener: any, context: any) {
     return emitter.addListener(EventName.onNewMessage, listener, context);
   },
 
-  getConversation(identify, userSig) {
+  getConversation(identify: any, userSig: any) {
     try {
       return module.getConversation(identify, userSig);
     } catch (e) {
@@ -21,7 +21,7 @@ export default {
     return module.destroyConversation();
   },
 
-  sendTextMsg(text) {
+  sendTextMsg(text: any) {
     try {
       return module.sendMessage(MessageType.Text, text, {});
     } catch (e) {

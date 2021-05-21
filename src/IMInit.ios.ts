@@ -5,11 +5,11 @@ const { IMInitializeModule: module } = NativeModules;
 const emitter = new NativeEventEmitter(module);
 
 export default {
-  addOnlineStatusListener(listener, context) {
+  addOnlineStatusListener(listener: any, context: any) {
     return emitter.addListener(EventName.userStatus, listener, context);
   },
 
-  login(identify, userSig) {
+  login(identify: any, userSig: any) {
     try {
       return module.login(identify, userSig);
     } catch (e) {

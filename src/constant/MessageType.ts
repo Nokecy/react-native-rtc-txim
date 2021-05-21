@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native';
 
 const { IMInitializeModule: module } = NativeModules;
 
-const msgType = (name) => {
+const msgType = (name:any) => {
   if (Platform.OS === 'ios') {
     // noinspection JSUnresolvedVariable
     return module.MessageType[name];

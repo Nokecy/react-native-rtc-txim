@@ -7,7 +7,7 @@ export default {
   /**
    * 添加用户在线状态监听器
    */
-  addOnlineStatusListener(listener, context) {
+  addOnlineStatusListener(listener: any, context: any) {
     return DeviceEventEmitter.addListener(EventName.userStatus, listener, context);
   },
 
@@ -17,7 +17,7 @@ export default {
    * @param userSig 用户签名
    * @returns {*}
    */
-  login(identify, userSig) {
+  login(identify: any, userSig: any) {
     return new Promise((resolve, reject) => {
       try {
         module.imLogin(identify, userSig);
@@ -25,9 +25,8 @@ export default {
         reject(e);
         return;
       }
-      DeviceEventEmitter.once(EventName.loginStatus, resp => {
-        resolve(resp);
-      });
+      //@ts-ignore
+      DeviceEventEmitter.once(EventName.loginStatus, resp => { resolve(resp); });
     });
   },
 

@@ -7,13 +7,13 @@ export default {
   /**
    * 添加消息接收监听器
    */
-  addMessageReceiveListener(listener, context) {
+  addMessageReceiveListener(listener: any, context: any) {
     return DeviceEventEmitter.addListener(EventName.onNewMessage, listener, context);
   },
   /** 
   * 消息列表发生改变时的监听
  */
-  addConversationRefreshListener(listener, context) {
+  addConversationRefreshListener(listener: any, context: any) {
     return DeviceEventEmitter.addListener(EventName.onConversationRefresh, listener, context);
   },
 
@@ -23,7 +23,7 @@ export default {
    * @param peer
    * @returns {*}
    */
-  getConversation(type, peer) {
+  getConversation(type: any, peer: any) {
     return new Promise((resolve, reject) => {
       try {
         module.getConversation(type, peer);
@@ -36,10 +36,11 @@ export default {
           resolve(true);
         } else {
           const err = new Error(resp.msg);
+          //@ts-ignore
           err.code = resp.code;
           reject(err);
         }
-      });
+      }, undefined);
     });
   },
 
@@ -56,10 +57,11 @@ export default {
           resolve(resp);
         } else {
           const err = new Error(resp.msg);
+          //@ts-ignore
           err.code = resp.code;
           reject(err);
         }
-      });
+      }, undefined);
     });
   },
 
@@ -80,10 +82,11 @@ export default {
           resolve(resp);
         } else {
           const err = new Error(resp.msg);
+          //@ts-ignore
           err.code = resp.code;
           reject(err);
         }
-      });
+      }, undefined);
     });
   },
 
@@ -94,7 +97,7 @@ export default {
   /**
    * 发送文本消息
    */
-  sendTextMsg(text) {
+  sendTextMsg(text: any) {
     return new Promise((resolve, reject) => {
       try {
         module.sendMessage(MessageType.Text, text, '', 0, 0, 0, true, 0.0, 0.0);
@@ -107,16 +110,17 @@ export default {
           resolve(true);
         } else {
           const err = new Error(resp.msg);
+          //@ts-ignore
           err.code = resp.code;
           reject(err);
         }
-      });
+      }, undefined);
     });
   },
   /**
    * 发送图片消息
    */
-  sendImageMsg(path, original = false) {
+  sendImageMsg(path: any, original = false) {
     return new Promise((resolve, reject) => {
       try {
         module.sendMessage(MessageType.Image, path, '', 0, 0, 0, !original, 0.0, 0.0);
@@ -129,17 +133,18 @@ export default {
           resolve(true);
         } else {
           const err = new Error(resp.msg);
+          //@ts-ignore
           err.code = resp.code;
           reject(err);
         }
-      });
+      }, undefined);
     });
   },
 
   /**
    * 发送语音消息
    */
-  sendAudioMsg(path, duration) {
+  sendAudioMsg(path: any, duration: any) {
     return new Promise((resolve, reject) => {
       try {
         module.sendMessage(MessageType.Sound, path, '', 0, 0, duration, true, 0.0, 0.0);
@@ -152,10 +157,11 @@ export default {
           resolve(true);
         } else {
           const err = new Error(resp.msg);
+          //@ts-ignore
           err.code = resp.code;
           reject(err);
         }
-      });
+      }, undefined);
     });
   },
 };

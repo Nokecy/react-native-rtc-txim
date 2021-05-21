@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native';
 
 const { IMInitializeModule: module } = NativeModules;
 
-const eventName = (name) => {
+const eventName = (name: any) => {
   if (Platform.OS === 'ios') {
     // noinspection JSUnresolvedVariable
     return module.EventName[name];
