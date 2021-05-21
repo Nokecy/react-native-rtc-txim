@@ -1,6 +1,6 @@
 {
   "name": "react-native-rtc-txim",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "腾讯IM react native 实现",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
