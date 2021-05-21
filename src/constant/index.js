@@ -1,3 +1,5 @@
-export EventName from './EventName';
-export MessageType from './MessageType';
-export ConversationType from './ConversationType';
+import EventName from './EventName';
+import MessageType from './MessageType';
+import ConversationType from './ConversationType';
+
+export { EventName, MessageType, ConversationType }
