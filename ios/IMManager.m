@@ -2,6 +2,9 @@
 #import "IMMessageBuilder.h"
 #import <AVFoundation/AVFoundation.h>
 
+#define TM_INSTANCE [V2TIMManager sharedInstance]
+#define DEFINE_TM(NAME) V2TIMManager *NAME = TM_INSTANCE
+
 @implementation IMManager {
   /// 是否初始化
   BOOL isInit;

@@ -4,6 +4,9 @@
 #import "IMMessageBuilder.h"
 #import "IMMessageInfo.h"
 
+#define TM_INSTANCE [V2TIMManager sharedInstance]
+#define DEFINE_TM(NAME) V2TIMManager *NAME = TM_INSTANCE
+
 @implementation IMMessageModule
 
 #pragma mark - RCTEventEmitter

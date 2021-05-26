@@ -6,6 +6,9 @@
 #import "IMUserStatusListener.h"
 #import "IMMessageInfo.h"
 
+#define TM_INSTANCE [V2TIMManager sharedInstance]
+#define DEFINE_TM(NAME) V2TIMManager *NAME = TM_INSTANCE
+
 @implementation IMInitializeModule
 
 #pragma mark - RCTEventEmitter
