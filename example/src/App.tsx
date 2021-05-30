@@ -1,15 +1,15 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import RtcTxim from 'react-native-rtc-txim';
+import { IMInitModule, IMChatModule } from 'react-native-rtc-txim';
 
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
 
-  React.useEffect(() => {
-    RtcTxim.multiply(3, 7).then(setResult);
-  }, []);
+React.useEffect(()=>{
+  IMInitModule.login();
+},[])
 
   return (
     <View style={styles.container}>
