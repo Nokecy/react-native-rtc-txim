@@ -1,7 +1,3 @@
-import { NativeModules, Platform } from 'react-native';
-
-const { IMInitializeModule: module } = NativeModules;
-
 const msgType = (name:any) => {
   return name;
 };

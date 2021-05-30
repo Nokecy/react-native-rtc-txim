@@ -1,5 +1,3 @@
-import { NativeModules, Platform } from 'react-native';
-
 const eventName = (name: any) => {
   return name;
 };
