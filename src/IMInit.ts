@@ -1,14 +1,30 @@
-import { DeviceEventEmitter, NativeModules } from 'react-native';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 import { EventName } from './constant';
 
 const { IMInitializeModule: module } = NativeModules;
+const IMEventEmitter = new NativeEventEmitter(module);
+export { IMEventEmitter }
 
 export default {
   /**
-   * 添加用户在线状态监听器
+   * 添加收到新回话监听器
    */
-  addOnlineStatusListener(listener: any, context: any) {
-    return DeviceEventEmitter.addListener(EventName.userStatus, listener, context);
+  addNewConversationListener(listener: any) {
+    return IMEventEmitter.addListener("onNewConversation", listener);
+  },
+
+  /**
+   * 添加收到新回话监听器
+   */
+  addConversationChangedListener(listener: any) {
+    return IMEventEmitter.addListener("onConversationChanged", listener);
+  },
+
+  /**
+ * 添加收到新消息监听器
+ */
+  addRecvNewMessageListener(listener: any) {
+    return IMEventEmitter.addListener("onRecvNewMessage", listener);
   },
 
   /**
@@ -25,9 +41,14 @@ export default {
         reject(e);
         return;
       }
-      //@ts-ignore
-      DeviceEventEmitter.once(EventName.loginStatus, resp => { resolve(resp); });
+      IMEventEmitter.once(EventName.loginStatus, resp => {
+        resolve(resp);
+      }, undefined);
     });
+  },
+
+  getUsersInfo(userList: any) {
+    return module.getUsersInfo(userList);
   },
 
   /**
