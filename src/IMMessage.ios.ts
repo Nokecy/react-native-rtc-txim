@@ -1,29 +1,31 @@
-import { NativeEventEmitter, NativeModules } from 'react-native';
-import { EventName, MessageType } from './constant';
+import { NativeModules } from 'react-native';
 
 const { IMMessageModule: module } = NativeModules;
-const emitter = new NativeEventEmitter(module);
 
 export default {
-  addMessageReceiveListener(listener: any, context: any) {
-    return emitter.addListener(EventName.onNewMessage, listener, context);
-  },
-
-  getConversation(identify: any, userSig: any) {
+  getConversation(peer: any) {
     try {
-      return module.getConversation(identify, userSig);
+      return module.getConversation(peer);
     } catch (e) {
       return Promise.reject(e);
     }
+  },
+
+  getConversationList() {
+    return module.getConversationList();
   },
 
   destroyConversation() {
     return module.destroyConversation();
   },
 
+  getC2CHistoryMessageList(userId: any) {
+    return module.getC2CHistoryMessageList(userId);
+  },
+
   sendTextMsg(text: any) {
     try {
-      return module.sendMessage(MessageType.Text, text, {});
+      return module.sendMessage(text);
     } catch (e) {
       return Promise.reject(e);
     }
